@@ -46,8 +46,9 @@ sym     ::= [a-z]+
     ? `${s}${t.type} ${t.text})`
     : `(${s}${t.type} ${t.children.map(c=>s+"\n"+show(c,k,d+1))})`
 }
-,cmd=_=>process.argv.length == 2
-     ?  show(parse(process.argv.length[2]))
-     :  toss(usage)
+
+,cmd  =_=> process.argv.length == 3
+       ?   show(parse(process.argv[2]))
+       :   toss(usage)
 
 module.exports = { show, parse, cmd }

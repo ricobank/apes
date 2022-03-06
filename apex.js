@@ -1,0 +1,2 @@
+require('./apes.js').cmd()
+
