@@ -19,34 +19,35 @@ Usage:
   apes <apeline>
 `
 ,gram =`
-apeline ::= (lvalue) S* "=" S* (rvalue) S* ";"? EOF
-S       ::= [#x20#x09#x0A#x0D]+  /* space \t \n \r */
-sym     ::= [a-z]+
-lvalue  ::= "[" S* tvpair* S* "]"
+apeline ::= (lvalue) S* "=" S* (rvalue)*
+S       ::= [#x20#x09#x0A#x0D]+
+lvalue  ::= (sym) | (tvpair) | "[" S* (tvpair*) S* "]"
 rvalue  ::= (obj) S* "." S* (func) S* S* "(" S* ")"
 obj     ::= (varval)
 func    ::= (sym)
-type    ::= "uint"
+type    ::= "uint" | "bytes32"
 varval  ::= (var) | (val)
 var     ::= (sym)
 val     ::= (decnum)
 tvpair  ::= (type) S+ (varval)
 args    ::= "(" S* (tvpair) S* ")"
 decnum  ::= [0-9]+
+sym     ::= [a-z]+
 `
 ,toss   =s=> { throw new Error(s) }
+,need   =(b,s)=> b ?? toss(s)
 ,rules  = ebnf.Grammars.W3C.getRules(gram)
 ,parser = new ebnf.Parser(rules)
-,line   = process.argv.length > 2 ? process.argv[2] : toss(usage)
-,ast    = parser.getAST(line)
+,parse  =s=> need(parser.getAST(s), 'could not parse')
 ,s      =i=> " ".repeat(i)
-,show   =(t,k=2,d=0,s=" ".repeat(d*k))=>
-  0 == t.children.length
+,show   =(t,k=2,d=0,s=" ".repeat(d*k))=> {
+  need(t && t.children, 'bad show arg')
+  return 0 == t.children.length
     ? `${s}${t.type} ${t.text})`
     : `(${s}${t.type} ${t.children.map(c=>s+"\n"+show(c,k,d+1))})`
+}
+,cmd=_=>process.argv.length == 2
+     ?  show(parse(process.argv.length[2]))
+     :  toss(usage)
 
-0
-,log(line)
-,log(show(ast))
-
-
+module.exports = { show, parse, cmd }
