@@ -21,7 +21,7 @@ Usage:
 ,gram =`
 apeline ::= (lvalue) S* "=" S* (rvalue)*
 S       ::= [#x20#x09#x0A#x0D]+
-lvalue  ::= (sym) | (tvpair) | "[" S* (tvpair*) S* "]"
+lvalue  ::= (tvpair) | (sym) | "[" S* (tvpair S*) (","S* tvpair S*)* S* "]"
 rvalue  ::= (obj) S* "." S* (func) S* S* "(" S* ")"
 obj     ::= (varval)
 func    ::= (sym)
