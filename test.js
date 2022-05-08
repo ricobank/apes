@@ -36,3 +36,25 @@ it('parseInvalidNullLvalue', t => {
 it('parseInvalidDecimalLvalue', t => {
     t.throws(_ => {parse("32=weth.balance()")}, parseError)
 })
+
+it('parseInvalidLValueArrayMultipleNoCommas', t => {
+    t.throws(_ => {
+        parse('[uint x uint y] = weth.balance()')
+    }, parseError)
+})
+
+it('parseInvalidLValueArrayMultipleExtraCommans', t => {
+    t.throws(_ => {
+        parse('[uint x,uint y,] = weth.balance()')
+    }, parseError)
+})
+
+it('parseInvalidTypedLvalue', t => {
+    t.throws(_ => {parse('badtype x = weth.balance()')}, parseError)
+})
+
+it('parseInvalidTypedLvalueArray', t => {
+    t.throws(_ => {
+        parse('[uint x, badtype y] = weth.balance()')
+    }, parseError)
+})
