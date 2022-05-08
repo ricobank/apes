@@ -7,7 +7,11 @@ it('parseBasicValid', t=>{
     t.ok(parse('x = weth.balance()'))
 })
 
-// can't parse if no lvalue provided
+/// Testing Invalid Lvalues
 it('parseInvalidNullLvalue', t=> {
     t.throws( _ => {parse('=weth.balance()')}, parseError)
+})
+
+it('parseInvalidDecimalLvalue', t => {
+    t.throws(_ => {parse("32=weth.balance()")}, parseError)
 })
