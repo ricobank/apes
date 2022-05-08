@@ -15,3 +15,7 @@ it('parseInvalidNullLvalue', t=> {
 it('parseInvalidDecimalLvalue', t => {
     t.throws(_ => {parse("32=weth.balance()")}, parseError)
 })
+
+it('parseInvalidTypeLValue', t => {
+    t.throws( _ => {parse("string x = weth.balance()"), parseError})
+})
