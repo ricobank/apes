@@ -22,7 +22,7 @@ decnum  ::= [0-9]+
 sym     ::= [a-zA-Z]+
 `
 ,toss   =s=> { throw new Error(s) }
-,need   =(b,s)=> b ?? toss(s)
+,need   =(b,s)=> b || toss(s)
 ,rules  = ebnf.Grammars.W3C.getRules(ape_grammar)
 ,parser = new ebnf.Parser(rules)
 ,parse  =s=> need(parser.getAST(s), 'could not parse')
