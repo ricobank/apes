@@ -33,7 +33,11 @@ it('parseInvalidNullLvalue', t => {
     t.throws( _ => {parse('=weth.balance()')}, parseError)
 })
 
-it('parseInvalidDecimalLvalue', t => {
+it('parseInvalidLEmptyLvalue', t => {
+    t.throws( _ => {parse(' =weth.balance()')})
+})
+
+it('parseInvalidDecnumLvalue', t => {
     t.throws(_ => {parse("32=weth.balance()")}, parseError)
 })
 
@@ -53,8 +57,25 @@ it('parseInvalidTypedLvalue', t => {
     t.throws(_ => {parse('badtype x = weth.balance()')}, parseError)
 })
 
+it('parseInvalidTypedLValueMultipleTyes', t => {
+    t.throws(_ => {parse('uint bytes32 x = weth.balance()')})
+})
+
 it('parseInvalidTypedLvalueArray', t => {
     t.throws(_ => {
         parse('[uint x, badtype y] = weth.balance()')
+    }, parseError)
+})
+
+// Test Valid Rvalues
+
+it('parseValidRvalue', t => {
+    t.ok(parse('x = weth.balanceOf(uint 123)'))
+})
+
+// Test Invalid Rvalues
+it('parseInvalidRvalueNoType', t => {
+    t.throws( _ => {
+        parse('x = weth.balanaceOf(123)')
     }, parseError)
 })
