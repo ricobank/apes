@@ -28,6 +28,10 @@ it('parseTyepdLvalueArrayMultipleOddSpacing', t => {
     t.ok(parse('[uint x ,bytes32 y]= weth.balance()'))
 })
 
+it('parseTyepdLvalueArrayMultipleAllSpacing', t => {
+    t.ok(parse('[  uint  x  ,  bytes32  y  ]  =  weth.balance(  )  '))
+})
+
 it('parseTypedLValueNoArrayAddress', t => {
     t.ok(parse('address x = weth.balance()'))
 })
