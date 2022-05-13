@@ -28,16 +28,36 @@ it('parseTyepdLvalueArrayMultipleOddSpacing', t => {
     t.ok(parse('[uint x ,bytes32 y]= weth.balance()'))
 })
 
-it('parseTypedLValueNoArrayUint', t => {
-    t.ok(parse('uint x = weth.balance()'))
+it('parseTypedLValueNoArrayAddress', t => {
+    t.ok(parse('address x = weth.balance()'))
+})
+
+it('parseTypedLValueNoArrayBool', t => {
+    t.ok(parse('bool x = weth.balance()'))
 })
 
 it('parseTypedLValueNoArrayInt', t => {
     t.ok(parse('int x = weth.balance()'))
 })
 
+it('parseTypedLValueNoArrayUint', t => {
+    t.ok(parse('uint x = weth.balance()'))
+})
+
 it('parseTypedLValueNoArrayBytes32', t=> {
     t.ok(parse('bytes32 x = weth.balance()'))
+})
+
+it('parseTypedLValueNoArrayFixed', t => {
+    t.ok(parse('fixed x = weth.balance()'))
+})
+
+it('parseTypedLValueNoArrayUfixed', t => {
+    t.ok(parse('ufixed x = weth.balance()'))
+})
+
+it('parseTypedLValueNoArrayFunction', t => {
+    t.ok(parse('function x = weth.balance()'))
 })
 
 /// Testing Invalid Lvalues
