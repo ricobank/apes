@@ -12,8 +12,16 @@ it('parseTypedLvalueArraySingle', t => {
     t.ok(parse('[uint x] = weth.balance()'))
 })
 
+it('parseTypedLvalueArraySingleInt', t => {
+    t.ok(parse('[int x] = weth.balance()'))
+})
+
 it('parseTypedLvalueArrayMultiple', t => {
     t.ok(parse('[uint x,bytes32 y] = weth.balance()'))
+})
+
+it('parseTypedLvalueArrayMultipleInt', t => {
+    t.ok(parse('[int x,int y] = weth.balance()'))
 })
 
 it('parseTyepdLvalueArrayMultipleOddSpacing', t => {
@@ -22,6 +30,10 @@ it('parseTyepdLvalueArrayMultipleOddSpacing', t => {
 
 it('parseTypedLValueNoArrayUint', t => {
     t.ok(parse('uint x = weth.balance()'))
+})
+
+it('parseTypedLValueNoArrayInt', t => {
+    t.ok(parse('int x = weth.balance()'))
 })
 
 it('parseTypedLValueNoArrayBytes32', t=> {
@@ -71,6 +83,10 @@ it('parseInvalidTypedLvalueArray', t => {
 
 it('parseValidRvalue', t => {
     t.ok(parse('x = weth.balanceOf(uint 123)'))
+})
+
+it('parseValidTypedRvalueInt', t => {
+    t.ok(parse('x = weth.balanceOf(int 123)'))
 })
 
 // Test Invalid Rvalues
