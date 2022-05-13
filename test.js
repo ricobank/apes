@@ -12,8 +12,16 @@ it('parseTypedLvalueArraySingle', t => {
     t.ok(parse('[uint x] = weth.balance()'))
 })
 
+it('parseTypedLvalueArraySingleInt', t => {
+    t.ok(parse('[int x] = weth.balance()'))
+})
+
 it('parseTypedLvalueArrayMultiple', t => {
     t.ok(parse('[uint x,bytes32 y] = weth.balance()'))
+})
+
+it('parseTypedLvalueArrayMultipleInt', t => {
+    t.ok(parse('[int x,int y] = weth.balance()'))
 })
 
 it('parseTyepdLvalueArrayMultipleOddSpacing', t => {
@@ -24,12 +32,36 @@ it('parseTyepdLvalueArrayMultipleAllSpacing', t => {
     t.ok(parse('[  uint  x  ,  bytes32  y  ]  =  weth.balance(  )  '))
 })
 
+it('parseTypedLValueNoArrayAddress', t => {
+    t.ok(parse('address x = weth.balance()'))
+})
+
+it('parseTypedLValueNoArrayBool', t => {
+    t.ok(parse('bool x = weth.balance()'))
+})
+
+it('parseTypedLValueNoArrayInt', t => {
+    t.ok(parse('int x = weth.balance()'))
+})
+
 it('parseTypedLValueNoArrayUint', t => {
     t.ok(parse('uint x = weth.balance()'))
 })
 
 it('parseTypedLValueNoArrayBytes32', t=> {
     t.ok(parse('bytes32 x = weth.balance()'))
+})
+
+it('parseTypedLValueNoArrayFixed', t => {
+    t.ok(parse('fixed x = weth.balance()'))
+})
+
+it('parseTypedLValueNoArrayUfixed', t => {
+    t.ok(parse('ufixed x = weth.balance()'))
+})
+
+it('parseTypedLValueNoArrayFunction', t => {
+    t.ok(parse('function x = weth.balance()'))
 })
 
 /// Testing Invalid Lvalues
@@ -75,6 +107,10 @@ it('parseInvalidTypedLvalueArray', t => {
 
 it('parseValidRvalue', t => {
     t.ok(parse('x = weth.balanceOf(uint 123)'))
+})
+
+it('parseValidTypedRvalueInt', t => {
+    t.ok(parse('x = weth.balanceOf(int 123)'))
 })
 
 // Test Invalid Rvalues
