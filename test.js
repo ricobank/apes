@@ -119,3 +119,10 @@ it('parseInvalidRvalueNoType', t => {
         parse('x = weth.balanaceOf(123)')
     }, parseError)
 })
+
+// Test with callopts (missing grammar for callopts ?)
+it('parseValidCallOpts', t => {
+    t.throws( _ => {
+        parse('x = weth.transfer{gas: 20}(int 123)')
+    }, parseError)
+})
